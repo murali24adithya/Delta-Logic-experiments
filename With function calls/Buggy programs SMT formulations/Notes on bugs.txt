@@ -1,0 +1,2 @@
+buggy1_delta-sll_insert_back.smt2: function contract in recursive call is wrong: see line 745 last Block 
+buggy2_delta-sll_insert_back.smt2: frame reasoning on delta is removed: see lines 755-757 in last Block

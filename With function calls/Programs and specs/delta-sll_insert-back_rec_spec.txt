@@ -1,0 +1,44 @@
+;;insert_back_rec(x, kk): recursive function that inserts kk to the end of the list x
+;@pre: ls(x, nil)
+;@post: ls2(x, nil) && mkeys2(x, nil) = mkeys(x, nil) \mult-union {kk}
+
+;;Block 1
+;@pre: ls(x, nil)
+
+;;assume x.next == nil
+;;create new y
+;;y.key := kk
+;;y.next := nil
+;;x.next := y
+;;return
+;;--delta is x, y
+
+;@post: ls2(x, nil) && mkeys2(x, nil) = mkeys(x, nil) \mult-union {kk}
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x, nil)
+
+;;assume x.next =/= nil
+;;x := x.next
+;;asserted as x2 := x.next
+
+;;recursively call insert_back_rec(x2, kk)
+
+;;assert postcondition of function call if precondition is true
+;; ls(x2, nil) => ls2(x2, nil) && mkeys2(x2, nil) = mkeys(x2, nil) \mult-union {kk}
+
+;;frame-reasoning: heaplet of function call is hls(x2, nil)
+;;hls(x, x2) \cap hls(x2, nil) = \empty => 
+;;(ls(x, x2) <=> ls2(x, x2)) && (mkeys(x, x2) = mkeys2(x, x2))
+
+;;frame-reasoning: observe that the pointers on the bounded part have not changed 
+;;if not in the heaplet of the function call
+(assert (=> (not (select (hls x2 nil) x))
+(= (select n2 x) (select n x))
+))
+
+;;--delta is x
+
+;@post: ls2(x, nil) && mkeys2(x, nil) = mkeys(x, nil) \mult-union {kk}
+;;End of Block 2
