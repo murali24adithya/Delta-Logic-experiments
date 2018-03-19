@@ -1,4 +1,10 @@
-;;sorted_merge(x, y): merges two sorted lists into another
+;;sorted_merge(x, y): merges two sorted lists into another 'ret'
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty && oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil)
+;@post: ls(ret, nil) && sorted(ret, nil) && oldhls = hls(ret, nil)
+;;&& oldmkeys = mkeys(ret, nil)
+;;------------------------------------------------------------------------------------------
 
 ;;declare ret Loc
 ;;declare temp Loc

@@ -1,4 +1,8 @@
 ;;insert-front(x, kk): inserts key kk at the head of the list
+;@pre: ls(x, nil)
+;@post: ls(x, nil) && hls2(x, nil) = hls(x, nil) \union {y}
+;;&& mkeys2(x, nil) = mkeys(x, nil) \mult-union {kk}
+;;----------------------------------------------------------------
 
 ;;Block 1
 ;@pre: ls(x, nil)

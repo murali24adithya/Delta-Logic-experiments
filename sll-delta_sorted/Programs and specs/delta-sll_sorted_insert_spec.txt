@@ -1,4 +1,9 @@
 ;;sorted_insert(x, kk): inserts key kk into sorted list x
+;@pre: ls(x, nil) && sorted(x, nil)
+;;&& oldmkeys = mkeys(x, nil)
+;@post: ls2(x, nil) && sorted2(x, nil) 
+;;&& mkeys2(x, nil) = oldmkeys \mult-union {kk}
+;;-------------------------------------------------------------------
 
 ;;declare temp Loc
 

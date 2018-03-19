@@ -1,7 +1,8 @@
 ;;listrev(x): reverses the list x
-
+;@pre: ls(x, nil) && oldhls = hls(x, nil) && oldmkeys = mkeys(x, nil)
+;@post: list(x) && hls(x) = oldhls && mkeys(x) = oldmkeys
+;;--------------------------------------------------------------------
 ;;declare y Loc
-
 ;;Block 1
 ;@pre: ls(x, nil) && oldhls = hls(x, nil) && oldmkeys = mkeys(x, nil)
 

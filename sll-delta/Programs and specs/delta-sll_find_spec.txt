@@ -1,4 +1,9 @@
 ;;find(x, kk): returns true iff k is in mkeys(x)
+;@pre: ls(x, nil)
+;@post: ls(x, nil) && (found <=> mkeys(x).kk > 0) 
+;; && mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;---------------------------------------------------------------
+
 ;;declare found Bool
 ;;declare temp Loc
 

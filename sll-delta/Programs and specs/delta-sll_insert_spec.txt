@@ -1,4 +1,7 @@
 ;;insert(x, kk): inserts k into the a maximal inital segment below k
+;@pre: ls(x, nil) && oldmkeys = mkeys(x, nil)
+;@post: ls2(x, nil) && mkeys2(x, nil) = oldmkeys \mult-union {kk}
+;;---------------------------------------------------------------------
 
 ;;Block 1
 ;@pre: ls(x, nil) && oldmkeys = mkeys(x, nil)

@@ -1,4 +1,8 @@
 ;;cycle_detection(x): detects if there is a cycle in x
+;@pre: true
+;@post: found => ls (x, tort) && circ_ls(tort.next, hare)
+;;&&not found => ls(x, nil)
+;;--------------------------------------------------------------------
 
 ;;declare found Bool
 ;;declare tort Loc

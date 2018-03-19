@@ -1,4 +1,9 @@
 ;;sorted_listrev(x): reverses the sorted list x
+;@pre: ls(x, nil) && sorted(x, nil)
+;;&& oldhls = hls(x, nil) && oldmkeys = mkeys(x, nil)
+;@post: ls(x, nil) && revsorted(x, nil) && hls(x, nil) = oldhls 
+;;&& mkeys(x, nil) = oldmkeys
+;;-----------------------------------------------------------------
 
 ;;declare y Loc
 

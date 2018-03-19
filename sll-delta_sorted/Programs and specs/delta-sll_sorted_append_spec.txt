@@ -1,4 +1,12 @@
 ;;append(x, y) : appends y to the end of x
+;@pre: ls(x, nil) && ls(y, nil) && hls(x, nil) \intersect hls(y, nil) = \empty
+;;oldmkeys = mkeys(x, nil) && oldhls = hls(x, nil)
+;;&& sorted(x, nil) && sorted(y, nil)
+;;&& maxls(x, nil) <= minls(y, nil)
+;@post: ls2(x, nil) && mkeys2(x, nil) = oldmkeys
+;;&& hls2(x, nil) = oldhls
+;;&& sorted2(x, nil)
+;;-----------------------------------------------------------------------------------
 
 ;;declare temp Loc
 

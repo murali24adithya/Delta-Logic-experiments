@@ -1,5 +1,9 @@
-
 ;;append(x, y) : appends y to the end of x
+;@pre: ls(x, nil) && ls(y, nil) && hls(x, nil) \intersect hls(y, nil) = \empty
+;;&& mkeys(x, nil) = oldmkeys
+;@post: ls2(x, nil) && mkeys2(x, nil) = oldmkeys
+;;&& hls2(x, nil) = oldhls
+;;----------------------------------------------------------------------------------
 
 ;;declare temp Loc
 

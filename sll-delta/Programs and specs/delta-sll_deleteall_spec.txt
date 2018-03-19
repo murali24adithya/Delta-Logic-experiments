@@ -1,7 +1,10 @@
 ;;deleteall(x, kk): deletes all occurrences of kk in x
+;@pre: ls(x, nil) && mkeys(x, nil).arb == constval
+;@post: list(x, nil) && mkeys(x, nil).kk = 0
+;;&& mkeys(x, nil).arb == constval
+;;arb Int (arbitrary key) such that arb =/= kk
+;;--------------------------------------------------------------
 
-;;declare arb Int (arbitrary key)
-;;arb =/= kk
 ;;declare temp Loc
 
 ;;Block 1

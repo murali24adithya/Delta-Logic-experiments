@@ -1,11 +1,14 @@
 ;;deleteall(x, kk): deletes all occurrences of kk in a sorted list x
-
+;@pre: ls(x, nil) && sorted(x, nil) && mkeys(x, nil).arb == constval
+;@post: ls(x, nil) && sorted(x, nil) && mkeys(x, nil).kk = 0
+;;&& mkeys(x, nil).arb == constval
 ;;declare arb Int (arbitrary key different from kk)
-;;arb =/= kk
+;;-----------------------------------------------------------------------
+
 ;;declare temp Loc
 
 ;;Block 1
-;@precondition: ls(x, nil) && sorted(x, nil) && mkeys(x, nil).arb == constval
+;@pre: ls(x, nil) && sorted(x, nil) && mkeys(x, nil).arb == constval
 
 ;;temp := x
 ;;--delta is nothing
@@ -67,7 +70,7 @@
 ;;End of Block 3
 
 ;;Block 4
-;@ls(x, temp) && ls(x, nil) && sorted(x, nil)
+;@pre: ls(x, temp) && ls(x, nil) && sorted(x, nil)
 ;; && mkeys(x, nil).kk = mkeys(temp, nil).kk && temp.key =/= kk
 ;;&& mkeys(x, nil).arb == constval
 ;;&& end-of-while assertion 

@@ -1,5 +1,9 @@
-
 ;;copyall(x): copies x into y
+;@pre: ls(x, nil)
+;@post: ls(y, nil) && mkeys(x, nil) = mkeys(y, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty
+;;---------------------------------------------------------
 
 ;;declare y Loc
 ;;declare temp_x Loc
