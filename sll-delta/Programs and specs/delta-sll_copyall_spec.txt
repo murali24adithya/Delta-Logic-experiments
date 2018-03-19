@@ -1,0 +1,75 @@
+
+;;copyall(x): copies x into y
+
+;;declare y Loc
+;;declare temp_x Loc
+;;declare temp_y Loc
+
+;;Block 1
+;@pre: ls(x, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+
+;;assume x == nil
+;;y := nil
+;;return y
+;;--delta is nothing
+
+;@post: ls(y, nil) && mkeys(x, nil) = mkeys(y, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+
+;@assume x =/= nil
+;;ensure created y =/= nil
+;;temp_x := x.next
+;;y.key := x.key
+;;y.next := nil
+;;temp_y := y
+;;--delta is x and y
+
+;@post: ls(x, nil) && ls(x, temp_x) && ls(y, temp_y) && temp_y.next = nil  
+;; && mkeys(x, nil) = mkeys(temp_x, nil) \mult-union mkeys(y, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x, nil) && ls(x, temp_x) && ls(y, temp_y) && temp_y.next = nil  
+;; && mkeys(x, nil) = mkeys(temp_x, nil) \mult-union mkeys(y, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty
+
+;;while temp_x =/= nil
+;;create new_y Loc
+;;new_y.key := temp_x.key
+;;new_y.next := nil
+;;temp_y.next := new_y
+;;temp_y := new_y
+;;temp_x := temp_x.next
+;;--delta is temp_x, temp_y, new_y
+ 
+;@post: ls(x, nil) && ls(x, temp_x) && ls(y, temp_y) && temp_y.next = nil  
+;; && mkeys(x, nil) = mkeys(temp_x, nil) \mult-union mkeys(y, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty
+
+;;end-of-while
+;;End of Block 3
+
+;;Block 4
+;@pre: ls(x, nil) && ls(x, temp_x) && ls(y, temp_y) && temp_y.next = nil  
+;; && mkeys(x, nil) = mkeys(temp_x, nil) \mult-union mkeys(y, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty
+;;&& end-of-while assertion
+
+;;--delta is temp_y
+
+;@post: ls(y, nil) && mkeys(x, nil) = mkeys(y, nil)
+;;&& mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty
+;;End of Block 4

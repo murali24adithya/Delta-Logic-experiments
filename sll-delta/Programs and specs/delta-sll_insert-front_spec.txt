@@ -1,0 +1,14 @@
+;;insert-front(x, kk): inserts key kk at the head of the list
+
+;;Block 1
+;@pre: ls(x, nil)
+;;create new y Loc
+;;y.key := kk
+;;y.next := x
+;;x := y
+;;return x
+;;--delta is y
+
+;@post: ls(x, nil) && hls2(x, nil) = hls(x, nil) \union {y}
+;;&& mkeys2(x, nil) = mkeys(x, nil) \mult-union {kk}
+;;End of Block 1

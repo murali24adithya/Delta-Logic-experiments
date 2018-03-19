@@ -1,0 +1,62 @@
+
+;;append(x, y) : appends y to the end of x
+
+;;declare temp Loc
+
+;;Block 1
+;;assume x == nil
+;;x := y
+;;return x
+;;--delta is nothing
+
+;@pre: ls(x, nil) && ls(y, nil) && hls(x, nil) \intersect hls(y, nil) = \empty
+;;&& mkeys(x, nil) = oldmkeys
+
+;@post: ls(x, nil) && mkeys(x, nil) = oldmkeys \union mkeys(y, nil)
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x, nil) && ls(y, nil) && hls(x, nil) \intersect hls(y, nil) = \empty
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+
+;;assume x=/= nil
+;;temp := x
+;;--delta is nothing
+
+;@post: temp =/= nil && ls (x, temp) && ls(y, nil) && hls(x, nil) \intersect hls(y, nil) = \empty
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+
+;;End of Block 2
+
+;;Block 3
+;@pre: temp =/= nil && ls (x, temp) && ls(y, nil) && hls(x, nil) \intersect hls(y, nil) = \empty
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+
+;;while temp.next =/= nil
+;;temp := temp.next
+;;--delta is temp
+
+;@post: temp =/= nil && ls (x, temp) && ls(y, nil) && hls(x, nil) \intersect hls(y, nil) = \empty
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+
+;;end-of-while
+;;End of Block 3
+
+;;Block 4
+;@pre: temp.next == nil && temp =/= nil && ls (x, temp) && ls(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+;&& end-of-while asertion
+
+;;temp.next := y
+;;--delta is temp
+;;return x
+
+;@post: ls2(x, nil) && mkeys2(x, nil) = oldmkeys
+;;&& hls2(x, nil) = oldhls
+;;End of Block 4

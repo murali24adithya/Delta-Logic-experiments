@@ -1,0 +1,60 @@
+;;sorted_insert(x, kk): inserts key kk into sorted list x
+
+;;declare temp Loc
+
+;;Block 1
+;@pre: ls(x, nil) && sorted(x, nil)
+;;&& oldmkeys = mkeys(x, nil)
+
+;;assume x == nil or x.key > kk
+;;create new y
+;;y.key := kk
+;;y.next := x
+;;x := y
+;;return x
+;;--delta is y
+
+;@post: ls2(x, nil) && sorted2(x, nil) 
+;;&& mkeys2(x, nil) = oldmkeys \mult-union {kk}
+;End of Block 1
+
+;;Block 2
+;@pre: ls(x, nil) && sorted(x, nil) && oldmkeys = mkeys(x, nil)
+
+;;assume x =/= nil and x.key <= kk
+;;temp := x
+;;--delta is nothing
+
+;@post: ls(x, nil) && sorted(x, nil) && oldmkeys = mkeys(x, nil)
+;;&& ls(x, temp) && temp =/= nil && temp.key <= kk
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x, nil) && sorted(x, nil) && oldmkeys = mkeys(x, nil)
+;;&& ls(x, temp) && temp =/= nil && temp.key <= kk
+
+;;while temp.next =/= nil && temp.next.key <= kk
+;;temp := temp.next
+;;--delta is temp
+
+;@post: ls(x, nil) && sorted(x, nil) && oldmkeys = mkeys(x, nil)
+;;&& ls(x, temp) && temp =/= nil && temp.key <= kk
+
+;;end-of-while
+;;End of Block 3
+
+;;Block 4
+;@pre: ls(x, nil) && sorted(x, nil) && oldmkeys = mkeys(x, nil)
+;;&& ls(x, temp) && temp =/= nil && temp.key <= kk
+;&& end-of-while assertion: temp.next == nil || temp.next.key > kk
+
+;;create new y Loc
+;;y.key := kk
+;;y.next := temp.next
+;;temp.next := y
+;;return x
+;;--delta is temp, y
+
+;@post: ls2(x, nil) && sorted2(x, nil) 
+;;&& mkeys2(x, nil) = oldmkeys \mult-union {kk}
+;;End of Block 4

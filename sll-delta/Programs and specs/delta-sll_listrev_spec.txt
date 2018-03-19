@@ -1,0 +1,44 @@
+;;listrev(x): reverses the list x
+
+;;declare y Loc
+
+;;Block 1
+;@pre: ls(x, nil) && oldhls = hls(x, nil) && oldmkeys = mkeys(x, nil)
+
+;;y := nil
+;;--delta is nothing
+
+;@post: ls(x,nil) && ls(y,nil) && hls(x,nil) \cap hls(y,nil) = \empty
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil) 
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x,nil) && ls(y,nil) && hls(x,nil) \cap hls(y,nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil) 
+
+;;while x =/= nil
+;; temp := x.next
+;;x.next := y
+;;y := x
+;;x := temp
+;;--delta is x
+
+;@post: ls2(x,nil) && ls2(y,nil) && hls2(x,nil) \cap hls2(y,nil) = \empty 
+;;&& oldhls = hls2(x, nil) \union hls2(y, nil)
+;;&& oldmkeys = mkeys2(x, nil) \mult-union mkeys2(y, nil) 
+;;end-of-while
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x,nil) && ls(y,nil) && hls(x,nil) \cap hls(y,nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil) 
+;;&& end-of-while assertion
+
+;;x := y
+;;--delta is nothing
+
+;@post: list(x) && hls(x) = oldhls && mkeys(x) = oldmkeys
+;;End of Block 3

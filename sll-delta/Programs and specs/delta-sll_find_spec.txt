@@ -1,0 +1,42 @@
+;;find(x, kk): returns true iff k is in mkeys(x)
+;;declare found Bool
+;;declare temp Loc
+
+;;Block 1
+;@pre: ls(x, nil)
+;; && mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+
+;;found := false
+;;temp := x
+;;--delta is nothing
+
+;@post: ls(x, nil) && ls(x, temp) && found <=> mkeys(x, temp).kk > 0
+;; && mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x, nil) && ls(x, temp) && found <=> mkeys(x, temp).kk > 0
+;; && mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+
+;;while temp=/=nil
+;;assume temp.key == kk
+;; found := true
+;;temp := temp.next
+;;--delta is temp
+
+
+;negate@list(x) && ls(x, temp) && found <=> mkeys(x, temp).kk > 0
+;; && mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;end-ofwhile
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x, nil) && ls(x, temp) && found <=> mkeys(x, temp).kk > 0
+;; && mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;&& end-ofwhile assertion
+
+;;return found
+
+;@post: ls(x, nil) && (found <=> mkeys(x).kk > 0) 
+;; && mkeys(x, nil) = oldmkeys && hls(x, nil) = oldhls
+;;End of Block 3

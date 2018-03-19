@@ -1,0 +1,80 @@
+;;cycle_detection(x): detects if there is a cycle in x
+
+;;declare found Bool
+;;declare tort Loc
+;;declare hare Loc
+
+;;Block 1
+;@pre: true
+
+;;assume x == nil or x.next == nil or x.next.next == nil
+;;found := false
+;;--delta is x, x.next
+
+;@post: found => ls (x, tort) && circ_ls(tort.next, hare)
+;;&&not found => ls(x, nil)
+;;End of Block 1
+
+;;Block 2
+;@pre: true
+
+;;assume x =/= nil and x.next =/= nil and x.next.next =/= nil
+;;tort := x.next
+;;hare := x.next.next
+;;--delta is x, x.next
+
+;@post: ls(x, tort) && ls(tort.next, hare)
+;;End of Block 2
+
+;;Block 3
+;;while hare =/= nil
+
+;;Sub-Block 3.1
+;pre: @ls(x, tort) && ls(tort.next, hare)
+
+;;assume hare.next == nil
+;;found := false
+;;return found
+;;--delta is hare and tort
+
+;@post: found => ls (x, tort) && circ_ls(tort.next, hare)
+;;&&not found => ls(x, nil)
+;;End of Sub-Block 3.1
+
+;;Sub-Block 3.2
+;@pre: ls(x, tort) && ls(tort.next, hare)
+
+;;assume hare.next =/= nil
+;;hare := hare.next.next
+;;tort := tort.next
+;;--delta is tort, hare, hare.next, tort2 (since mentioned in postcondition)
+
+;@post: ls(x, tort) && ls(tort.next, hare)
+;;End of Sub-Block 3.2
+
+;;Sub-Block 3.3
+;@pre: ls(x, tort) && ls(tort.next, hare)
+
+;;assume tort == hare
+;;found := true
+;; return found
+;;--delta is tort
+
+;@post: found => ls (x, tort) && circ_ls(tort.next, hare)
+;;&&not found => ls(x, nil)
+;;End of Sub-Block 3.3
+
+;;end-of-while
+;;End of Block 3
+
+;;Block 4
+;@ls(x, tort) && ls(tort.next, hare)
+;;&& end-of-while assertion
+
+;;found := false
+;;return found
+;;--delta is tort
+
+;@post: found => ls (x, tort) && circ_ls(tort.next, hare)
+;;&&not found => ls(x, nil)
+;;End of Block 4

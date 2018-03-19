@@ -1,0 +1,54 @@
+;;sorted_listrev(x): reverses the sorted list x
+
+;;declare y Loc
+
+;; Block 1
+;@pre: ls(x, nil) && sorted(x, nil)
+;;&& oldhls = hls(x, nil) && oldmkeys = mkeys(x, nil)
+
+;;y := nil
+;;--delta is nothing
+
+;@post: ls(x, nil) && ls(y, nil) && sorted(x, nil) && revsorted(y, nil)
+;;&& hls(x,nil) \cap hls(y,nil) = \empty
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil) 
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x,nil) && ls(y,nil) && sorted(x, nil) && revsorted(y, nil)
+;;&& ((x =/= nil && y =/= nil) => (minls(x, nil) >= maxls(y, nil)) )
+;;&& hls(x,nil) \cap hls(y,nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil) 
+
+;;while x =/= nil
+;; temp := x.next
+;;x.next:= y
+;;y := x
+;;x := temp
+;;--delta is x
+
+;@post: ls2(x,nil) && ls2(y,nil) && sorted2(x, nil) && revsorted2(y, nil)
+;;&& ((x =/= nil && y =/= nil) => (minls2(x, nil) >= maxls2(y, nil)) )
+;;&& hls2(x2,nil) \cap hls2(y2,nil) = \empty 
+;;&& oldhls = hls2(x, nil) \union hls2(y, nil)
+;;&& oldmkeys = mkeys2(x, nil) \mult-union mkeys2(y, nil) 
+
+;;end-of-while
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x,nil) && ls(y,nil) && sorted(x, nil) && revsorted(y, nil)
+;;&& ((x =/= nil && y =/= nil) => (minls(x, nil) >= maxls(y, nil)) )
+;;&& hls(x,nil) \cap hls(y,nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil) 
+;;&& end-of-while assertion: x =/= nil
+
+;;x := y
+;;--delta is nothing
+
+;@post: ls(x, nil) && revsorted(x, nil) && hls(x, nil) = oldhls 
+;;&& mkeys(x, nil) = oldmkeys
+;;End of Block 3

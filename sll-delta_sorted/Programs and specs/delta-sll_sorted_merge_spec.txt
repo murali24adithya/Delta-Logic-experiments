@@ -1,0 +1,149 @@
+;;sorted_merge(x, y): merges two sorted lists into another
+
+;;declare ret Loc
+;;declare temp Loc
+
+;;Block 1
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty && oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil)
+
+;;assume x == nil
+;;return y
+;;--delta is nothing
+
+;@post: ls(y, nil) && sorted(y, nil) && oldhls = hls(y, nil)
+;;&& oldmkeys = mkeys(y, nil)
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty && oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil)
+
+;;assume y == nil
+;;return x
+;;--delta is nothing
+
+;@post: ls(x, nil) && sorted(x, nil) && oldhls = hls(x, nil)
+;;&& oldmkeys = mkeys(x, nil)
+;;End of Block 2
+
+;;Block 3
+;;assume x =/= nil && y =/= nil
+
+;;Sub-Block 3.1
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty && oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil)
+
+;;assume x.key <= y.key
+;;ret := x
+;;temp := ret
+;;x := x.next
+;;temp.next := nil
+;;--delta is x and temp
+
+;@post: ls(x, nil) && ls(y, nil) && ls(ret, temp) && temp.next ==nil
+;;&& sorted(x, nil) && sorted(y, nil) && sorted(ret, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil) \union hls(ret, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil) \union mkeys(ret, nil)
+;;End of Sub-Block 3.1
+
+;;Sub-Block 3.2
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty && oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil)
+
+;;assume x.key > y.key
+;;ret := y
+;;temp := ret
+;;y := y.next
+;;temp.next := nil
+;;--delta is y and temp
+
+;@post: ls(x, nil) && ls(y, nil) && ls(ret, temp) && temp.next ==nil
+;;&& sorted(x, nil) && sorted(y, nil) && sorted(ret, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil) \union hls(ret, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil) \union mkeys(ret, nil)
+;;End of Sub-Block 3.2
+;;End of Block 3
+
+;;Block 4
+;;while x =/= nil && y =/= nil
+
+;;Sub-Block 4.1
+;@pre: ls(x, nil) && ls(y, nil) && ls(ret, temp) && temp.next ==nil
+;;&& sorted(x, nil) && sorted(y, nil) && sorted(ret, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil) \union hls(ret, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil) \union mkeys(ret, nil)
+
+;;assume x.key <= y.key
+;;temp.next := x
+;;x := x.next
+;;temp := temp.next
+;temp.next := nil
+;;--delta is x, temp and temp2
+
+;@post: ls(x, nil) && ls(y, nil) && ls(ret, temp) && temp.next ==nil
+;;&& sorted(x, nil) && sorted(y, nil) && sorted(ret, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil) \union hls(ret, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil) \union mkeys(ret, nil)
+;;End of Sub-Block 4.1
+
+;;Sub-Block 4.2
+;@pre: ls(x, nil) && ls(y, nil) && ls(ret, temp) && temp.next ==nil
+;;&& sorted(x, nil) && sorted(y, nil) && sorted(ret, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil) \union hls(ret, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil) \union mkeys(ret, nil)
+
+;;assume x.key > y.key
+;;temp.next := y
+;;y := y.next
+;;temp := temp.next
+;temp.next := nil
+;;--delta is y, temp and temp2
+
+;@post: ;@pre: ls(x, nil) && ls(y, nil) && ls(ret, temp) && temp.next ==nil
+;;&& sorted(x, nil) && sorted(y, nil) && sorted(ret, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil) \union hls(ret, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil) \union mkeys(ret, nil)
+;;End of Sub-Block 4.2
+
+;;end-of-while
+;;End of Block 4
+
+;;Block 5
+;@pre: ls(x, nil) && ls(y, nil) && ls(ret, temp) && temp.next ==nil
+;;&& sorted(x, nil) && sorted(y, nil) && sorted(ret, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = \empty 
+;;&& oldhls = hls(x, nil) \union hls(y, nil) \union hls(ret, nil)
+;;&& oldmkeys = mkeys(x, nil) \union mkeys(y, nil) \union mkeys(ret, nil)
+;;&& end-of-while assertion: x == nil or y == nil
+
+;;Sub-Block 5.1
+;;assume x == nil
+;;temp.next := y
+;;return ret
+;;--delta is temp
+
+;@post: ls(ret, nil) && sorted(ret, nil) && oldhls = hls(ret, nil)
+;;&& oldmkeys = mkeys(ret, nil)
+;;End of Sub-Block 5.1
+
+;;Sub-Block 5.2
+;;assume y == nil
+;;temp.next := x
+;;return ret
+;;--delta is temp
+
+;@post: ls(ret, nil) && sorted(ret, nil) && oldhls = hls(ret, nil)
+;;&& oldmkeys = mkeys(ret, nil)
+;;End of Sub-Block 5.2
+;;End of Block 5

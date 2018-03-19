@@ -1,0 +1,79 @@
+;;deleteall(x, kk): deletes all occurrences of kk in a sorted list x
+
+;;declare arb Int (arbitrary key different from kk)
+;;arb =/= kk
+;;declare temp Loc
+
+;;Block 1
+;@precondition: ls(x, nil) && sorted(x, nil) && mkeys(x, nil).arb == constval
+
+;;temp := x
+;;--delta is nothing
+
+;@post: x == temp && ls(x, nil) && sorted(x, nil) 
+;;&& mkeys(x, nil).kk = mkeys(temp, nil).kk
+;;&& mkeys(x, nil).arb == constval
+;;End of Block 1
+
+;;Block 2
+;@pre: x == temp && ls(x, nil) && sorted(x, nil) 
+;;&& mkeys(x, nil).kk = mkeys(temp, nil).kk
+;;&& mkeys(x, nil).arb == constval
+
+;;while temp.key == kk
+;;x := x.next
+;;temp := x
+;;--delta is x
+
+;@post: x == temp && ls(x, nil) && sorted(x, nil) 
+;;&& mkeys(x, nil).kk = mkeys(temp, nil).kk
+;;&& mkeys(x, nil).arb == constval
+
+;;end-of-while temp.key =/= kk
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x, temp) && ls(x, nil) && sorted(x, nil)
+;; && mkeys(x, nil).kk = mkeys(temp, nil).kk 
+;;&& temp.key =/= kk (end-of-while assertion)
+;;&& mkeys(x).arb == constval
+
+;;while temp =/= nil and temp.next =/= nil
+
+;;Sub-Block 3.1
+;;assume temp.next.key = kk 
+;;temp.next := temp.next.next
+;;--delta is temp and temp.next
+
+;@post: ls2(x, temp) && ls2(x, nil) && sorted2(x, nil)
+;; && mkeys2(x, nil).kk = mkeys2(temp, nil).kk && temp.key =/= kk
+;;&& mkeys2(x).arb == constval
+
+;;end of temp.next.key == kk branch
+;;End of Sub-Block 3.1
+
+;;Sub-Block 3.2
+;;assume temp.next.key =/= kk 
+;;temp := temp.next
+;;--delta is temp
+
+;@post: ls2(x, temp) && ls2(x, nil) && sorted2(x, nil)
+;; mkeys2(x, nil).kk = mkeys2(temp, nil).kk && temp.key =/= kk
+;;&& mkeys2(x).arb == constval
+;;end of temp.next.key =/= kk branch
+;;End of Sub-Block 3.2
+
+;;end-of-while
+;;End of Block 3
+
+;;Block 4
+;@ls(x, temp) && ls(x, nil) && sorted(x, nil)
+;; && mkeys(x, nil).kk = mkeys(temp, nil).kk && temp.key =/= kk
+;;&& mkeys(x, nil).arb == constval
+;;&& end-of-while assertion 
+
+;;--delta is nothing
+
+;@post: ls(x, nil) && sorted(x, nil) && mkeys(x, nil).kk = 0
+;;&& mkeys(x, nil).arb == constval
+;;End of Block 4

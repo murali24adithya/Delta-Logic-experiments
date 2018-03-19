@@ -1,0 +1,42 @@
+;;insert-back(x, kk): inserts key kk at the back
+
+;;Block 1
+;@pre: ls(x, nil)
+;;assume x == nil
+;;create new y Loc
+;;y.key := kk
+;;y.next := nil
+;;x := y
+;;--delta is y
+;@post: ls(x, nil) && mkeys2(x, nil) = mkeys(x, nil) \mult-union {kk}
+;;End of Block 1
+
+;; Block 2
+;@pre: ls(x, nil)
+;;assume x =/= nil
+;;temp := x
+;;--delta is nothing
+;@post: ls(x, temp) && temp =/= nil
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x, temp) && temp =/= nil
+;;while temp.next =/= nil
+;;temp := temp.next
+;;--delta is temp
+;@post: ls(x, temp) && temp =/= nil
+;;end-of-while
+;;End of Block 3
+
+;;Block 4
+;@pre: ls(x, temp) && temp =/= nil
+;;&& end-of-while assertion
+
+;;create new y Loc
+;;y.key := kk
+;;temp.next := y
+;;y.next := nil
+;;--delta is temp, y
+
+;@post: ls(x, nil) && mkeys2(x, nil) = mkeys(x, nil) \mult-union {kk}
+;;End of Block 4
