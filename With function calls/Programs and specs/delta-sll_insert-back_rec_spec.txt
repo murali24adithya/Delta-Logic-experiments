@@ -34,9 +34,7 @@
 
 ;;frame-reasoning: observe that the pointers on the bounded part have not changed 
 ;;if not in the heaplet of the function call
-(assert (=> (not (select (hls x2 nil) x))
-(= (select n2 x) (select n x))
-))
+;; n'(x) = n(x) since x \notin hls(x2, nil)
 
 ;;--delta is x
 
