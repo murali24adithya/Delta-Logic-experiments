@@ -1,0 +1,83 @@
+;;sorted_merge_rec(x, y): merges two sorted lists into another
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = empLoc
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+;@post: ls(ret, nil) && sorted(ret, nil) && oldhls = hls(ret, nil)
+;;&& oldmkeys = mkeys(ret, nil)
+
+;;Block 1
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = empLoc
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+
+;;assume x == nil
+;;return y
+;;--delta is nothing
+
+;@post: ls(ret, nil) && sorted(ret, nil) && oldhls = hls(ret, nil)
+;;&& oldmkeys = mkeys(ret, nil)
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = empLoc
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+
+;;assume y == nil
+;;return x
+;;--delta is nothing
+
+;@post: ls(ret, nil) && sorted(ret, nil) && oldhls = hls(ret, nil)
+;;&& oldmkeys = mkeys(ret, nil)
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = empLoc
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+
+;;assume x =/= nil && y =/= nil
+;;assume x.key <= y.key
+;;declare temp
+;;temp := x.next
+
+;;recursively call sorted_merge_rec(temp, y)
+;;assert postcondition of function call if precondition is true
+
+;;x.next := ret_rec
+;;return x
+
+;;frame-reasoning: not useful here in this formulation since all pointers are changing
+;;--delta is x
+
+;@post: ls(ret, nil) && sorted(ret, nil) && oldhls = hls(ret, nil)
+;;&& oldmkeys = mkeys(ret, nil)
+;;End of Block 3
+
+;;Block 4
+;@pre: ls(x, nil) && ls(y, nil) && sorted(x, nil) && sorted(y, nil) 
+;;&& hls(x, nil) \intersect hls(y, nil) = empLoc
+;;&& oldhls = hls(x, nil) \union hls(y, nil)
+;;&& oldmkeys = mkeys(x, nil) \mult-union mkeys(y, nil)
+
+;;assume x =/= nil && y =/= nil
+;;assume x.key > y.key
+;;declare temp
+;;temp := y.next
+
+;;recursively call sorted_merge_rec(x, temp)
+;;assert postcondition of function call if precondition is true
+
+;;y.next := ret_rec
+;;return y
+
+;;frame-reasoning: not useful here in this formulation since all pointers are changing
+;;--delta is y
+
+;@post: ls(ret, nil) && sorted(ret, nil) && oldhls = hls(ret, nil)
+;;&& oldmkeys = mkeys(ret, nil)
+;;End of Block 4

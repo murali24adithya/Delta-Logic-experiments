@@ -1,0 +1,46 @@
+;;deleteall_rec(x, kk): deletes all occurrences of kk in x
+;@pre: ls(x,nil) && mkeys(x, nil).arb == constval
+
+
+
+;;arb =/= kk
+
+;;Block 1
+;@pre: ls(x,nil) && mkeys(x, nil).arb == constval
+
+;;assume x == nil
+;;return x
+;;--delta is nothing
+
+;@post: ls(x,nil) && mkeys(x, nil).arb == constval && mkeys(x, nil).kk == 0
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x,nil) && mkeys(x, nil).arb == constval
+
+;;assume x =/= nil 
+;;if x.key == kk then x2 := x.next
+;;if x.key =/= kk then x2 := x
+;;--delta is x
+
+;@post: ls(x,nil) && mkeys(x, nil).arb == constval
+;;End of Block 2
+
+;;Block 3
+;@pre: ls(x,nil) && mkeys(x, nil).arb == constval
+
+;;assume x =/= nil && x.key =/= kk
+;;declare temp
+;;temp := x.next
+
+;;recursively call deleteall_rec(temp, kk)
+;;assert postcondition of function call if precondition is true
+
+;;frame-reasoning: heaplet of function call is hls(temp, nil)
+;;frame-reasoning: observe that the pointers on the bounded part have not changed 
+;;if not in the heaplet of the function call
+
+;;--delta is x
+
+;@post: ls(x,nil) && mkeys(x, nil).arb == constval && mkeys(x, nil).kk == 0
+;;End of Block 3

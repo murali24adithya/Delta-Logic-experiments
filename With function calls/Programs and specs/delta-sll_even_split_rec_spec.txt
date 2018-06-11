@@ -1,0 +1,52 @@
+;;even_split_rec(x, ff, ss): splits a list x into two (almost) equal lists ff and ss
+;@pre: ls(x, nil)
+;;&& oldhls = hls(x, nil)
+;;&& oldmkeys = mkeys(x, nil)
+;@post: ls(ff, nil) && ls(ss, nil)
+;;&& oldhls = hls(ff, nil) \union hls(ss, nil)
+;;&& oldmkeys = mkeys(ff, nil) \mult-union mkeys(ss, nil)
+;;&& lslen(ff, nil) =/= lslen(ss, nil) => lslen(ff, nil) == 
+
+;;Block 1
+;@pre: ls(x, nil)
+;;&& oldhls = hls(x, nil)
+;;&& oldmkeys = mkeys(x, nil)
+
+;;assume x == nil || x.next == nil
+;;ff := x
+;;ss := nil
+;;--delta is x
+
+;@post: ls(ff, nil) && ls(ss, nil)
+;;&& oldhls = hls(ff, nil) \union hls(ss, nil)
+;;&& oldmkeys = mkeys(ff, nil) \mult-union mkeys(ss, nil)
+;;&& lslen(ff, nil) =/= lslen(ss, nil) => lslen(ff, nil) == lslen(ss, nil) + 1
+;;End of Block 1
+
+;;Block 2
+;@pre: ls(x, nil)
+;;&& oldhls = hls(x, nil)
+;;&& oldmkeys = mkeys(x, nil)
+
+;;assume x =/= nil && x.next =/= nil
+;;declare temp
+;;temp := x.next.next
+
+;;declare ff_temp
+;;declare ss_temp
+;;recursively call even_split_rec(temp, ff_temp, ss_temp)
+;;assert postcondition of function call if precondition is true
+
+;;x.next.next := ss_temp
+;;ss := x.next
+;;x.next := ff_temp
+;;ff := x
+
+;;frame-reasoning: not useful here in this formulation since all pointers are changing
+;;--delta is x, x.next
+
+;@post: ls(ff, nil) && ls(ss, nil)
+;;&& oldhls = hls(ff, nil) \union hls(ss, nil)
+;;&& oldmkeys = mkeys(ff, nil) \mult-union mkeys(ss, nil)
+;;&& lslen(ff, nil) =/= lslen(ss, nil) => lslen(ff, nil) == lslen(ss, nil) + 1
+;;End of Block 2
